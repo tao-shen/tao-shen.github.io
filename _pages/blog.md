@@ -14,6 +14,7 @@ pagination:
     before: 1 # The number of links before the current page
     after: 3 # The number of links after the current page
 ---
+
 <div class="post">
 
 {% assign blog_name_size = site.blog_name | size %}
@@ -75,54 +76,54 @@ pagination:
 <p class="card-text">{{ post.description }}</p>
 
 [
-    {% if post.external_source == blank %}
-                      {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
-                    {% else %}
-                      {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
-                    {% endif %}
-                    {% assign year = post.date | date: "%Y" %}]({{ post.url | relative_url }})
+{% if post.external_source == blank %}
+{% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
+{% else %}
+{% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
+{% endif %}
+{% assign year = post.date | date: "%Y" %}]({{ post.url | relative_url }})
 
 [
-    `<p class="post-meta">`
-                      {{ read_time }} min read &nbsp; &middot; &nbsp;
-                      `<a href="{{ year | prepend: '/blog/' | relative_url }}">`
-                        `<i class="fa-solid fa-calendar fa-sm"></i>` {{ year }} `</a>`
-                    `</p>`
-                  `</div>`
-                `</div>`
-              `</div>`
-            `</div>`
-          `</a>`
-        `</div>`
-      {% endfor %}
-      `</div>`
-    `</div>`
-    `<hr>`]({{ post.url | relative_url }})
+`<p class="post-meta">`
+{{ read_time }} min read &nbsp; &middot; &nbsp;
+`<a href="{{ year | prepend: '/blog/' | relative_url }}">`
+`<i class="fa-solid fa-calendar fa-sm"></i>` {{ year }} `</a>`
+`</p>`
+`</div>`
+`</div>`
+`</div>`
+`</div>`
+`</a>`
+`</div>`
+{% endfor %}
+`</div>`
+`</div>`
+`<hr>`]({{ post.url | relative_url }})
 
 [{% endif %}]({{ post.url | relative_url }})
 
 [
-    {% if page.pagination.enabled %}
-      {% assign postlist = paginator.posts %}
-    {% else %}
-      {% assign postlist = site.posts %}
-    {% endif %}]({{ post.url | relative_url }})
+{% if page.pagination.enabled %}
+{% assign postlist = paginator.posts %}
+{% else %}
+{% assign postlist = site.posts %}
+{% endif %}]({{ post.url | relative_url }})
 
 [
-    {% for post in postlist %}]({{ post.url | relative_url }})
+{% for post in postlist %}]({{ post.url | relative_url }})
 
 [
-    {% if post.external_source == blank %}
-      {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
-    {% else %}
-      {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
-    {% endif %}
-    {% assign year = post.date | date: "%Y" %}
-    {% assign tags = post.tags | join: "" %}
-    {% assign categories = post.categories | join: "" %}]({{ post.url | relative_url }})
+{% if post.external_source == blank %}
+{% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
+{% else %}
+{% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
+{% endif %}
+{% assign year = post.date | date: "%Y" %}
+{% assign tags = post.tags | join: "" %}
+{% assign categories = post.categories | join: "" %}]({{ post.url | relative_url }})
 
 [
-    `<li>`]({{ post.url | relative_url }})
+`<li>`]({{ post.url | relative_url }})
 
 [{% if post.thumbnail %}]({{ post.url | relative_url }})
 
@@ -158,9 +159,8 @@ pagination:
 {% endif %}
     </li>
 
-
 {% endif %}
-    
+
     {% endfor %}
 
 </ul>
