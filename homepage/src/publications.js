@@ -1,18 +1,6 @@
 export const profile = {
   chineseName: "沈弢",
   portrait: "tao-shen-scholar.jpg",
-  education: [
-    {
-      dates: "2015 — 2018",
-      degree: ["M.S. in Control Science & Engineering", "控制科学与工程硕士"],
-      school: ["Zhejiang University", "浙江大学"],
-    },
-    {
-      dates: "2011 — 2015",
-      degree: ["B.S. in Automation", "自动化学士"],
-      school: ["China University of Petroleum", "中国石油大学（华东）"],
-    },
-  ],
 };
 
 export const publications = [
@@ -63,6 +51,19 @@ export const publications = [
     code: "https://github.com/tao-shen/fedeve",
     bibtex:
       "@misc{fedeve-2025,\n  title = {{FedEve: On Bridging the Client Drift and Period Drift for Cross-device Federated Learning}},\n  author = {Shen, Tao and Li, Zexi and Zhu, Didi and Zhao, Ziyu and Wu, Chao and Wu, Fei},\n  year = {2025},\n  note = {arXiv preprint arXiv:2508.14539},\n  url = {https://arxiv.org/abs/2508.14539}\n}",
+    shortTitle: "FedEve",
+    figure: {
+      file: "fedeve-2025.webp",
+      label: "Fig. 2",
+      width: 1796,
+      height: 771,
+      alt: [
+        "Original FedEve figure: Bayesian filtering combines server prediction and client observation to narrow the uncertainty of a fused model update.",
+        "FedEve 论文原图：贝叶斯滤波融合服务端预测与客户端观测，降低模型更新的不确定性。",
+      ],
+      caption: ["Bayesian prediction and observation in FedEve.", "FedEve 中的贝叶斯预测与观测。"],
+      source: "https://arxiv.org/pdf/2508.14539v1#page=5",
+    },
   },
   {
     id: "fedmcon-journal-2025",
@@ -81,6 +82,19 @@ export const publications = [
     ],
     bibtex:
       "@article{fedmcon-journal-2025,\n  title = {{FedMcon: an adaptive aggregation method for federated learning via meta controller}},\n  author = {Shen, Tao and Li, Zexi and Zhao, Ziyu and Zhu, Didi and Lv, Zheqi and Kuang, Kun and Zhang, Shengyu and Wu, Chao and Wu, Fei},\n  year = {2025},\n  journal = {Frontiers of Information Technology \\& Electronic Engineering 26(8), 1378–1393},\n  doi = {10.1631/FITEE.2400530},\n  url = {https://jzus.zju.edu.cn/iparticle.php?doi=10.1631%2FFITEE.2400530}\n}",
+    shortTitle: "FedMcon",
+    figure: {
+      file: "fedmcon-journal-2025.webp",
+      label: "Fig. 2",
+      width: 2146,
+      height: 1067,
+      alt: [
+        "Original FedMcon figure: parallel views of meta-learning, a feedback control system, and the federated learning pipeline show how a learned controller adapts model aggregation.",
+        "FedMcon 论文原图：从元学习、反馈控制系统和联邦学习流程三个视角展示可学习控制器如何自适应聚合模型。",
+      ],
+      caption: ["Meta-learning meets feedback control and aggregation.", "元学习、反馈控制与自适应聚合。"],
+      source: "https://journal.hep.com.cn/fitee/EN/PDF/10.1631/FITEE.2400530#page=7",
+    },
   },
   {
     id: "lora-lego-2025",
@@ -99,6 +113,19 @@ export const publications = [
     ],
     bibtex:
       "@inproceedings{lora-lego-2025,\n  title = {{Merging LoRAs like Playing LEGO: Pushing the Modularity of LoRA to Extremes Through Rank-Wise Clustering}},\n  author = {Zhao, Ziyu and Shen, Tao and Zhu, Didi and Li, Zexi and Su, Jing and Wang, Xuwu and Kuang, Kun and Wu, Fei},\n  year = {2025},\n  booktitle = {ICLR 2025},\n  url = {https://openreview.net/forum?id=j6fsbpAllN}\n}",
+    shortTitle: "LoRA-LEGO",
+    figure: {
+      file: "lora-lego-2025.webp",
+      label: "Fig. 3",
+      width: 1400,
+      height: 1162,
+      alt: [
+        "LoRA-LEGO disassembles LoRAs into minimal semantic units, clusters the units, and reconstructs a merged LoRA.",
+        "LoRA-LEGO 将多个 LoRA 拆成最小语义单元，通过聚类重新组合成合并后的 LoRA。",
+      ],
+      caption: ["Group, cluster, and reconstruct LoRA semantic units.", "LoRA 语义单元的分组、聚类与重构。"],
+      source: "https://arxiv.org/pdf/2409.16167v3#page=5",
+    },
   },
   {
     id: "llm-scaling-2025",
@@ -117,6 +144,19 @@ export const publications = [
     ],
     bibtex:
       "@misc{llm-scaling-2025,\n  title = {{Will LLMs Scaling Hit the Wall? Breaking Barriers via Distributed Resources on Massive Edge Devices}},\n  author = {Shen, Tao and Zhu, Didi and Zhao, Ziyu and Li, Zexi and Wu, Chao and Wu, Fei},\n  year = {2025},\n  note = {arXiv preprint arXiv:2503.08223},\n  url = {https://arxiv.org/abs/2503.08223}\n}",
+    shortTitle: "LLM Scaling",
+    figure: {
+      file: "llm-scaling-2025.webp",
+      label: "Fig. 6",
+      width: 1636,
+      height: 755,
+      alt: [
+        "Original paper figure: a world map connects small language models on edge devices to a shared large language model.",
+        "论文原图：全球边缘设备上的小模型协同训练大语言模型。",
+      ],
+      caption: ["Collaborative LLM training across edge devices.", "边缘设备协同训练大语言模型。"],
+      source: "https://arxiv.org/pdf/2503.08223v3#page=9",
+    },
   },
   {
     id: "fedcfa-2025",
@@ -222,6 +262,19 @@ export const publications = [
     code: "https://github.com/didizhu-judy/Model-Tailor",
     bibtex:
       "@inproceedings{model-tailor-2024,\n  title = {{Model Tailor: Mitigating Catastrophic Forgetting in Multi-modal Large Language Models}},\n  author = {Zhu, Didi and Sun, Zhongyisun and Li, Zexi and Shen, Tao and Yan, Ke and Ding, Shouhong and Wu, Chao and Kuang, Kun},\n  year = {2024},\n  booktitle = {ICML 2024, Proceedings of Machine Learning Research 235, 62581–62598},\n  url = {https://proceedings.mlr.press/v235/zhu24l.html}\n}",
+    shortTitle: "Model Tailor",
+    figure: {
+      file: "model-tailor-2024.webp",
+      label: "Fig. 2",
+      width: 1868,
+      height: 476,
+      alt: [
+        "Model Tailor identifies a sparse model patch and decorates it with compensation to preserve pre-trained capabilities during adaptation.",
+        "Model Tailor 先找到稀疏的模型补丁，再进行补偿修饰，以在适应新任务时保留预训练能力。",
+      ],
+      caption: ["Find a model patch, then preserve existing capabilities.", "寻找模型补丁，并保留原有能力。"],
+      source: "https://raw.githubusercontent.com/mlresearch/v235/main/assets/zhu24l/zhu24l.pdf#page=4",
+    },
   },
   {
     id: "adaptive-aggregation-2024",
@@ -297,6 +350,19 @@ export const publications = [
     code: "https://github.com/tao-shen/FML",
     bibtex:
       "@article{fml-2023,\n  title = {{Federated mutual learning: a collaborative machine learning method for heterogeneous data, models, and objectives}},\n  author = {Shen, Tao and Zhang, Jie and Jia, Xinkang and Zhang, Fengda and Lv, Zheqi and Kuang, Kun and Wu, Chao and Wu, Fei},\n  year = {2023},\n  journal = {Frontiers of Information Technology \\& Electronic Engineering 24(10), 1390–1402},\n  doi = {10.1631/FITEE.2300098},\n  url = {https://jzus.zju.edu.cn/opentxt.php?doi=10.1631%2FFITEE.2300098}\n}",
+    shortTitle: "Federated Mutual Learning",
+    figure: {
+      file: "fml-2023.webp",
+      label: "Fig. 2",
+      width: 1828,
+      height: 924,
+      alt: [
+        "Federated Mutual Learning: private personalized models exchange knowledge with a shared meme model through deep mutual learning.",
+        "联邦互学习：本地个性化模型通过深度互学习，与共享的 meme 模型交换知识。",
+      ],
+      caption: ["Mutual learning between personalized and shared models.", "个性化模型与共享模型之间的互学习。"],
+      source: "https://jzus.zju.edu.cn/opentxt.php?doi=10.1631/FITEE.2300098#page=6",
+    },
   },
   {
     id: "duet-2023",

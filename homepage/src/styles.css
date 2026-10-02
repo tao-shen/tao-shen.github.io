@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./research.css";
 @source "./App.jsx";
 @source "./content.js";
 

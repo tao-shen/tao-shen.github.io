@@ -20,6 +20,8 @@ import {
 } from "@phosphor-icons/react";
 import { copy, links, products, directions } from "./content.js";
 import { publications, profile } from "./publications.js";
+import LossLandscape from "./LossLandscape.jsx";
+import FigureDialog from "./FigureDialog.jsx";
 
 const icon = { size: 18, weight: "regular", "aria-hidden": true };
 const cx = (...items) => items.filter(Boolean).join(" ");
@@ -121,71 +123,40 @@ function ProductRow({ product: p, lang, c, index }) {
 
 function ResearchSection({ lang, c, onExplore }) {
   const [active, setActive] = useState(0);
-  const [vertical, setVertical] = useState(true);
-  useEffect(() => {
-    const media = matchMedia("(min-width: 768px)");
-    const update = () => setVertical(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
   const direction = directions[active];
-  const handleKey = (event, index) => {
-    if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
-    event.preventDefault();
-    const next = event.key === "Home" ? 0 : event.key === "End" ? 2 : (index + (["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : 2)) % 3;
-    setActive(next);
-    document.getElementById(`direction-${next}`)?.focus();
-  };
+  const keyPapers = publications.filter((p) => p.selected && p.topics.includes(direction.key)).slice(0, 3);
   return (
     <section id="research" className="page-section">
       <SectionHeading eyebrow={c.chapter2} title={c.research} subtitle={c.researchSub} />
       <p className="research-intro">{c.researchIntro}</p>
-      <div className="research-box grid md:grid-cols-[280px_1fr]">
-        <div
-          className="research-tabs"
-          role="tablist"
-          aria-label={lang ? "研究方向" : "Research directions"}
-          aria-orientation={vertical ? "vertical" : "horizontal"}
-        >
-          {directions.map((d, i) => (
-            <button
-              key={d.key}
-              type="button"
-              id={`direction-${i}`}
-              role="tab"
-              aria-controls="research-panel"
-              aria-selected={i === active}
-              tabIndex={i === active ? 0 : -1}
-              onKeyDown={(e) => handleKey(e, i)}
-              onClick={() => setActive(i)}
-              className={cx("research-tab", i === active && "is-active")}
-            >
-              <span className="mono">0{i + 1}</span>
-              <span>
-                {d.label[lang]}
-                <small>{d.dates}</small>
-              </span>
-              <ArrowUpRight {...icon} />
-            </button>
-          ))}
-        </div>
-        <div id="research-panel" className="research-panel" role="tabpanel" aria-labelledby={`direction-${active}`} tabIndex={0}>
-          <div className="research-orbit" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-            <i />
-            <i />
-            <i />
-          </div>
-          <p className="eyebrow">{direction.dates}</p>
-          <h3>{direction.subtitle[lang]}</h3>
-          <p>{direction.description[lang]}</p>
-          <button className="text-link" onClick={() => onExplore(direction.key)}>
-            {c.relatedPaper}
-            <ArrowRight {...icon} />
+      <div className="research-landscape">
+        <LossLandscape active={active} onSelect={setActive} lang={lang} />
+      </div>
+      <div className="research-detail" id="research-panel" aria-label={lang ? "研究方向详情" : "Research direction details"}>
+        <div>
+          <p className="eyebrow">
+            0{active + 1} · {direction.dates}
+          </p>
+          <h3>{direction.label[lang]}</h3>
+          <p className="research-detail-subtitle">{direction.subtitle[lang]}</p>
+          <button className="outline-link" onClick={() => onExplore(direction.key)}>
+            {publications.filter((p) => p.topics.includes(direction.key)).length} {c.results}
+            <ArrowRight {...icon} size={15} />
           </button>
+        </div>
+        <div>
+          <p>{direction.description[lang]}</p>
+          <ul className="research-paper-links">
+            {keyPapers.map((p) => (
+              <li key={p.id}>
+                <External href={p.url}>
+                  {p.shortTitle || p.title.split(":")[0]}
+                  <ArrowUpRight {...icon} size={12} />
+                </External>
+                <span>{p.year}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
@@ -198,7 +169,7 @@ function Authors({ value }) {
     .map((part, i) => (/^(Tao Shen|T Shen)/.test(part) ? <strong key={i}>{part}</strong> : <React.Fragment key={i}>{part}</React.Fragment>));
 }
 
-function Publication({ p, c, lang }) {
+function Publication({ p, c, lang, onOpenFigure }) {
   const [open, setOpen] = useState(false);
   const bibtex =
     p.bibtex ||
@@ -206,8 +177,24 @@ function Publication({ p, c, lang }) {
       p.year
     }},\n  url = {${p.url}}\n}`;
   return (
-    <article className="publication">
-      <div className="pub-year mono">{p.year}</div>
+    <article className={cx("publication", p.figure && "publication-illustrated")} id={`pub-${p.id}`}>
+      {p.figure ? (
+        <figure className="paper-figure">
+          <button type="button" onClick={() => onOpenFigure(p)} aria-label={`${c.figure}: ${p.shortTitle || p.title}`}>
+            <img src={`./images/papers/${p.figure.file}`} alt={p.figure.alt[lang]} width={p.figure.width} height={p.figure.height} loading="lazy" />
+            <span className="figure-expand">
+              <MagnifyingGlass {...icon} size={14} />
+              {c.figure}
+            </span>
+          </button>
+          <figcaption>
+            <span>{p.figure.label}</span>
+            {p.figure.caption[lang]}
+          </figcaption>
+        </figure>
+      ) : (
+        <div className="pub-year mono">{p.year}</div>
+      )}
       <div className="min-w-0">
         <div className="pub-meta flex flex-wrap items-center gap-2">
           <span>{p.venue}</span>
@@ -262,6 +249,7 @@ export default function App() {
   const [firstOnly, setFirstOnly] = useState(false);
   const [query, setQuery] = useState("");
   const [activeSection, setActiveSection] = useState("");
+  const [figurePaper, setFigurePaper] = useState(null);
   const lang = language === "zh" ? 1 : 0;
   const c = copy[language];
   const sectionIds = ["building", "research", "publications", "journey"];
@@ -400,9 +388,7 @@ export default function App() {
               <dl className="profile-facts grid gap-5 sm:grid-cols-2">
                 <div>
                   <dt>{c.degreeLabel}</dt>
-                  <dd>
-                    {c.degree} <span className="muted">’25</span>
-                  </dd>
+                  <dd>{c.degree}</dd>
                 </div>
                 <div>
                   <dt>{c.focusLabel}</dt>
@@ -564,7 +550,7 @@ export default function App() {
           </div>
           <div className="publication-list">
             {filtered.map((p) => (
-              <Publication key={p.id} p={p} c={c} lang={lang} />
+              <Publication key={p.id} p={p} c={c} lang={lang} onOpenFigure={setFigurePaper} />
             ))}
             {filtered.length === 0 && (
               <div className="empty-state">
@@ -582,53 +568,31 @@ export default function App() {
 
         <section id="journey" className="page-section">
           <SectionHeading eyebrow={c.chapter4} title={c.journey} />
-          <div className="journey-list">
-            <article className="journey-row grid gap-3 md:grid-cols-[180px_1fr]">
-              <div className="journey-time mono">
-                <span className="journey-dot now" />
-                {c.now}
-              </div>
-              <div>
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3>{c.founder}</h3>
-                  <External href={links.company} className="journey-org">
-                    {c.founderDetail}
-                    <ArrowUpRight {...icon} size={15} />
-                  </External>
-                </div>
-                <p>{c.founderText}</p>
-              </div>
+          <div className="career-chapters">
+            <article className="career-chapter">
+              <p className="eyebrow">01 · {c.researcherPeriod}</p>
+              <h3>{c.researcher}</h3>
+              <p className="career-affiliation">{c.researcherDetail}</p>
+              <p>{c.researcherText}</p>
+              <a className="text-link" href="#research">
+                {lang ? "研究与论文" : "Research & publications"}
+                <ArrowUpRight {...icon} size={15} />
+              </a>
             </article>
-            <article className="journey-row grid gap-3 md:grid-cols-[180px_1fr]">
-              <div className="journey-time mono">
-                <span className="journey-dot" />
-                2019 — 2025
-              </div>
-              <div>
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3>{c.phd}</h3>
-                  <External href="https://www.zju.edu.cn/english/" className="journey-org">
-                    {c.phdDetail}
-                    <ArrowUpRight {...icon} size={15} />
-                  </External>
-                </div>
-                <p>{c.phdText}</p>
-              </div>
+            <div className="career-transition" aria-hidden="true">
+              <ArrowRight size={22} />
+              <span className="mono">2025</span>
+            </div>
+            <article className="career-chapter career-current">
+              <p className="eyebrow">02 · {c.now}</p>
+              <h3>Founder</h3>
+              <p className="career-affiliation">{c.founderDetail}</p>
+              <p>{c.founderText}</p>
+              <a className="text-link" href="#building">
+                {lang ? "产品与实践" : "Products & practice"}
+                <ArrowUpRight {...icon} size={15} />
+              </a>
             </article>
-            {profile.education?.map((education) => (
-              <article key={education.dates} className="journey-row grid gap-3 md:grid-cols-[180px_1fr]">
-                <div className="journey-time mono">
-                  <span className="journey-dot" />
-                  {education.dates}
-                </div>
-                <div>
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3>{education.degree[lang]}</h3>
-                    <span className="journey-org">{education.school[lang]}</span>
-                  </div>
-                </div>
-              </article>
-            ))}
           </div>
         </section>
 
@@ -662,6 +626,7 @@ export default function App() {
           </div>
         </section>
       </main>
+      <FigureDialog paper={figurePaper} lang={lang} c={c} onClose={() => setFigurePaper(null)} />
       <footer className="page-width site-footer">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
           <div>
