@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" fill="none">
+  <title>AIR: four dimensions of career exposure</title>
+  <desc>A conceptual map of learnability, evaluation, risk, and human presence. The equal axes identify dimensions without showing any measured scores.</desc>
+  <path fill="#f7f9f7" d="M0 0h640v400H0z"/>
+  <circle cx="320" cy="200" r="119" fill="#eef3ef"/>
+  <g stroke="#c7d6cb" stroke-width="1.1">
+    <circle cx="320" cy="200" r="119"/>
+    <circle cx="320" cy="200" r="80"/>
+    <circle cx="320" cy="200" r="41"/>
+    <path d="m236 116 168 168m-168 0 168-168" stroke-dasharray="3 7"/>
+  </g>
+  <path d="M320 76v248M196 200h248" stroke="#8fa997" stroke-width="1.2"/>
+  <g fill="#f7f9f7" stroke="#547462" stroke-width="1.5">
+    <circle cx="320" cy="81" r="7"/><circle cx="439" cy="200" r="7"/>
+    <circle cx="320" cy="319" r="7"/><circle cx="201" cy="200" r="7"/>
+  </g>
+  <circle cx="320" cy="200" r="40" fill="#547462"/>
+  <path d="M306 202c0-9 7-16 14-16s14 7 14 16m-28 6h28m-25-20-6-6m28 6 6-6m-17-7v-7" stroke="#f7f9f7" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M312 209v7m16-7v7m-16 0h16" stroke="#f7f9f7" stroke-width="1.5" stroke-linecap="round"/>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#24372d">
+    <text x="320" y="53" text-anchor="middle">Learnability</text>
+    <text x="467" y="206">Evaluation</text>
+    <text x="320" y="356" text-anchor="middle">Risk</text>
+    <text x="173" y="195" text-anchor="end">Human</text>
+    <text x="173" y="218" text-anchor="end">presence</text>
+  </g>
+  <path d="M49 48h30m-30 0v30m542 274v-30m0 30h-30" stroke="#c7d6cb" stroke-width="1.2"/>
+</svg>
